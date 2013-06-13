@@ -23,5 +23,44 @@
       "expression":"$.Result",
       "callbackData":{"foo":"bar","wibble":{"type":"expression","expression":"$.response.Result","extract":true}}
     }
+  },
+  {
+    "name":"session",
+    "description":"manipulate ZAP sessions"
+  },
+  {
+    "name":"session new",
+    "description":"create a new session",
+    "returnType":"string",
+    "params":[
+    {
+      "name":"name",
+      "type": "string",
+      "description":"the name of the new session to create"
+    }
+    ],
+    "execAction":{
+      "url":"http://localhost:8080/JSON/core/action/newSession/?zapapiformat=JSON&name=${name}",
+      "expression":"$.Result",
+      "callbackData":{"foo":"bar","wibble":{"type":"expression","expression":"$.response.Result","extract":true}}
+    }
+  },
+  {
+    "name":"break",
+    "description":"create a new session",
+    "returnType":"string",
+    "params":[
+    {
+      "name":"state",
+      "type": {"name":"selection", "data":["on","off"]},
+      "description": "break on request",
+      "defaultValue": "on"
+    }
+    ],
+    "execAction":{
+      "url":"http://localhost:8080/${state}",
+      "expression":"$.Result",
+      "callbackData":{"wibble":{"type":"expression","expression":"$.response.Result","extract":true}}
+    }
   }]
 }
