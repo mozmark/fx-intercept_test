@@ -14,15 +14,15 @@
         "dataAction":{
           "url":"http://%{host}/static/values.json",
           "expression":"$.results[*]"
-      }},
+        }},
       "description":"an example arg that gets its complete actions from a web service call"
     }
     ],
-    "execAction":{
-      "url":"http://%{host}/call/${arg}",
-      "expression":"$.Result",
-      "callbackData":{"foo":"bar","wibble":{"type":"expression","expression":"$.response.Result","extract":true}}
-    }
+        "execAction":{
+          "url":"http://%{host}/call/${arg}",
+          "expression":"$.Result",
+          "callbackData":{"foo":"bar","wibble":{"type":"expression","expression":"$.response.Result","extract":true}}
+        }
   },
   {
     "name":"session",
@@ -39,13 +39,12 @@
       "description":"the name of the new session to create"
     }
     ],
-    "execAction":{
-      "url":"http://localhost:8080/JSON/core/action/newSession/?zapapiformat=JSON&name=${name}",
-      "expression":"$.Result",
-      "callbackData":{"foo":"bar","wibble":{"type":"expression","expression":"$.response.Result","extract":true}}
-    }
-  },
-  {
+        "execAction":{
+          "url":"http://localhost:8080/JSON/core/action/newSession/?zapapiformat=JSON&name=${name}",
+          "expression":"$.Result",
+          "callbackData":{"foo":"bar","wibble":{"type":"expression","expression":"$.response.Result","extract":true}}
+        }
+  }, {
     "name":"break",
     "description":"create a new session",
     "returnType":"string",
@@ -58,9 +57,28 @@
     }
     ],
     "execAction":{
-      "url":"http://localhost:8080/${state}",
       "expression":"$.Result",
-      "callbackData":{"wibble":{"type":"expression","expression":"$.response.Result","extract":true}}
+      "callbackData":{
+        "conditionalCommands":{
+          "expression":"$.args.state",
+          "states":{
+            "on":[{
+              "command":"addToHeader",
+              "params": {
+                "headerName":"X-Security-Proxy",
+                "value":"intercept"
+              }
+            }],
+            "off":[{
+              "command":"removeFromHeader",
+              "params": {
+                "headerName":"X-Security-Proxy",
+                "value":"intercept"
+              }
+            }]
+          }
+        }
+      }
     }
   }]
 }
