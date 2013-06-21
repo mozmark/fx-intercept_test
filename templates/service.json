@@ -40,7 +40,7 @@
     }
     ],
         "execAction":{
-          "url":"http://${host}:8080/JSON/core/action/newSession/?zapapiformat=JSON&name=${name}",
+          "url":"http://localhost:8080/JSON/core/action/newSession/?zapapiformat=JSON&name=${name}",
           "expression":"$.Result",
           "callbackData":{"foo":"bar","wibble":{"type":"expression","expression":"$.response.Result","extract":true}}
         }
