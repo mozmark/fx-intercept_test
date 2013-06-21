@@ -40,12 +40,12 @@
     }
     ],
         "execAction":{
-          "url":"http://localhost:8080/JSON/core/action/newSession/?zapapiformat=JSON&name=${name}",
+          "url":"http://${host}:8080/JSON/core/action/newSession/?zapapiformat=JSON&name=${name}",
           "expression":"$.Result",
           "callbackData":{"foo":"bar","wibble":{"type":"expression","expression":"$.response.Result","extract":true}}
         }
   }, {
-    "name":"break",
+    "name":"brk",
     "description":"create a new session",
     "returnType":"string",
     "params":[
@@ -54,6 +54,12 @@
       "type": {"name":"selection", "data":["on","off"]},
       "description": "break on request",
       "defaultValue": "on"
+    },
+    {
+      "name":"scope",
+      "type": {"name":"selection", "data":["tab","global"]},
+      "description": "local to tab or global",
+      "defaultValue": "tab"
     }
     ],
     "execAction":{
@@ -66,14 +72,16 @@
               "command":"addToHeader",
               "params": {
                 "headerName":"X-Security-Proxy",
-                "value":"intercept"
+                "value":"intercept",
+                "scope":{"type":"expression","expression":"$.args.scope","extract":true}
               }
             }],
             "off":[{
               "command":"removeFromHeader",
               "params": {
                 "headerName":"X-Security-Proxy",
-                "value":"intercept"
+                "value":"intercept",
+                "scope":{"type":"expression","expression":"$.args.scope","extract":true}
               }
             }]
           }
