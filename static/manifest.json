@@ -1,10 +1,12 @@
 {
-  "mitmTool":"OWASP ZAP D-2013-04-22",
+  "mitmTool":"OWASP ZAP",
   "proxyPAC":"http://mdgmbp3.local:8080/proxy.pac",
-  "protocolVersion":"1.00",
+  "protocolVersion":"0.2",
   "features":{
-    "break":"true",
-    "record":"true",
+    "proxy":{
+      "PAC":"http://mdgmbp3.local:8080/proxy.pac",
+      "CACert":"http://mdgmbp3.local:8080/OTHER/core/other/rootcert/"
+    },
     "CACert":"http://mdgmbp3.local:8080/OTHER/core/other/rootcert/",
     "commands":{
       "prefix":"zap",
