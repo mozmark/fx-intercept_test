@@ -29,7 +29,7 @@
 <script>
   var detected = false;
   var divs = ['setup','in_progress','success','failure','activated','actions'];
-  var manifest = {"detail":{"url":"http://localhost:3000/static/manifest"}};
+  var manifest = {"detail":{"url":"http://localhost:3000/static/manifest.json"}};
   // only show UI for the named elements
   var showUI = function(visible){
     for(var idx in divs){
