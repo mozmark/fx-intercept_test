@@ -65,6 +65,6 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     s.send_response(200)
     s.send_header('Content-type','text/html')
     s.end_headers()
-    s.wfile.write('<html>hello, world!</html>')
+    s.wfile.write('<html><body><p>maybe you want <a href="/static/docs/api/allclasses-noframe.html">docs</a></body></html>')
 
 run(handler_class = MyHandler)

@@ -7,7 +7,7 @@
       "CACert":"http://mdgmbp3.local:8080/OTHER/core/other/rootcert/"
     },
     "commands":{
-      "prefix":"zap",
+      "prefix":"ringleader",
       "manifest":"http://localhost:3000/templates/service.json"
     }
   }
