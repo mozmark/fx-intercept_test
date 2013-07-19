@@ -18,7 +18,7 @@
     }
     ],
         "execAction":{
-          "url":"http://localhost:8080/JSON/core/action/newSession/?zapapiformat=JSON&name=${name}",
+          "url":"http://localhost:8080/JSON/core/action/newSession/?zapapiformat=JSON&name=${$.args.name}",
           "expression":"$.Result",
           "callbackData":{"foo":"bar","wibble":{"type":"expression","expression":"$.response.Result","extract":true}}
         }
@@ -41,7 +41,7 @@
     }
     ],
     "execAction":{
-      "expression":"$.Result",
+      "url":"http://localhost:3000/JSON/core/blah/?zapapiformat=JSON&name=${$.key}&state=${$.args.state}",
       "callbackData":{
         "conditionalCommands":{
           "expression":"$.args.state",
@@ -50,7 +50,10 @@
               "command":"addToHeader",
               "params": {
                 "headerName":"X-Security-Proxy",
-                "value":"intercept",
+                "value":{
+                          "type":"template",
+                          "template":"key=${$.key}"
+                },
                 "scope":{"type":"expression","expression":"$.args.scope","extract":true}
               }
             }],
@@ -58,7 +61,10 @@
               "command":"removeFromHeader",
               "params": {
                 "headerName":"X-Security-Proxy",
-                "value":"intercept",
+                "value":{
+                          "type":"template",
+                          "template":"key=${$.key}"
+                },
                 "scope":{"type":"expression","expression":"$.args.scope","extract":true}
               }
             }]
