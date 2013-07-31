@@ -72,5 +72,27 @@
         }
       }
     }
+  }, {
+    "name":"scan",
+    "description":"active scan a site",
+    "returnType":"string",
+    "params":[
+      {
+        "name":"site",
+        "type": {
+          "name":"selection",
+          "dataAction":{
+            "url":"http://localhost:8080/JSON/core/view/sites/",
+            "expression":"$.sites[*]"
+          }
+        },
+        "description":"the site to scan (attack)"
+      }
+    ],
+    "execAction":{
+      "url":"http://localhost:8080/JSON/ascan/action/scan/?url=${$.args.site}",
+      "expression":"$.Result",
+      "callbackData":{}
+    }
   }]
 }
