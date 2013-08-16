@@ -41,31 +41,21 @@
     }
     ],
     "execAction":{
-      "url":"http://localhost:3000/JSON/core/blah/?zapapiformat=JSON&name=${$.key}&state=${$.args.state}",
+      "url":"http://localhost:8080/JSON/core/blah/?zapapiformat=JSON&name=${$.key}&state=${$.args.state}",
       "callbackData":{
         "conditionalCommands":{
-          "expression":"$.args.state",
+          "expression":"$.args.scope",
           "states":{
-            "on":[{
+            "tab":[{
               "command":"addToHeader",
               "params": {
                 "headerName":"X-Security-Proxy",
                 "value":{
                           "type":"template",
-                          "template":"key=${$.key}"
+                          "template":"key=${$.tab.key}"
                 },
-                "scope":{"type":"expression","expression":"$.args.scope","extract":true}
-              }
-            }],
-            "off":[{
-              "command":"removeFromHeader",
-              "params": {
-                "headerName":"X-Security-Proxy",
-                "value":{
-                          "type":"template",
-                          "template":"key=${$.key}"
-                },
-                "scope":{"type":"expression","expression":"$.args.scope","extract":true}
+                "scope":{"type":"expression","expression":"$.args.scope","extract":true},
+                "tab":{"type":"expression","expression":"$.tab.key","extract":true}
               }
             }]
           }
