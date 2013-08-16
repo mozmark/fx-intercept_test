@@ -87,6 +87,16 @@
           }
         },
         "description":"the site to scan (attack)"
+      },{
+        "name":"site2",
+        "type": {
+          "name":"selection",
+          "dataAction":{
+            "url":"http://localhost:3000/JSON/core/view/sites/site=${$.args.site}",
+            "expression":"$.sites[*]"
+          }
+        },
+        "description":"the site to scan (attack)"
       }
     ],
     "execAction":{

@@ -1,0 +1,85 @@
+<html>
+<head>
+<title>ZAP API UI</title>
+</head>
+<body>
+<h1>Welcome to the OWASP Zed Attack Proxy (ZAP)</h1><p>ZAP is an easy to use integrated penetration testing tool for finding vulnerabilities in web applications.</p><p></p><p>Please be aware that you should only attack applications that you have been specifically been given permission to test.</p><b>Note: This is a temporary add-on for testing MITM configuration :) </b><br>  <div id="messages">
+    <div id="setup" style="display:none">
+      <p>Your browser does not seem to support automatic man-in-the-middle configuration</p>
+      <p>If you are using a recent version of Firefox, you can install the get the addon here:
+<b><a href="http://mdgmbp3.local:8080/OTHER/mitm/other/gclimitm.xpi">http://mdgmbp3.local:8080/OTHER/mitm/other/gclimitm.xpi</a> </b></p>    </div>
+    <div id="in_progress" style="display:none">
+      <p>Configuring your browser to work with your man-in-the-middle proxy...</p>
+    </div>
+    <div id="success" style="display:none">
+      <p>Configuration succeeded!</p>
+    </div>
+    <div id="failure" style="display:none">
+      <p>Configuration failed</p>
+    </div>
+    <div id="activated" style="display:none">
+      <p>mitm support has been activated in your browser:</p>
+    </div>
+    <div id="actions">
+      <p>
+      <button id="btn">Click to setup!</button>
+      </p>
+  </div>
+</body>
+<script>
+  var detected = false;
+  var divs = ['setup','in_progress','success','failure','activated','actions'];
+  var manifest = {"detail":{"url":"http://localhost:3000/static/manifest.json"}};
+  // only show UI for the named elements
+  var showUI = function(visible){
+    for(var idx in divs){
+      if (-1 != visible.indexOf(divs[idx])) {
+        document.getElementById(divs[idx]).style.display = 'inline';
+        } else {
+        document.getElementById(divs[idx]).style.display = 'none';
+      }
+    }
+  };
+  // event listener for button press
+  var click = function(event) {
+    var evt = new CustomEvent('ConfigureSecTool', manifest);
+    document.dispatchEvent(evt);
+    setTimeout(function() {
+      if (!detected) {
+        showUI(['setup']);
+     }
+    },1000);
+  };
+  // event listener for configuration started event
+  var started = function(event) {
+    console.log('configuration has started');
+    showUI(['in_progress']);
+    detected = true;
+  };
+  // event listener for configuration failed event
+  // use this to let the user know something has gone wrong
+  var failed = function(event) {
+    console.log('configuration has failed');
+    showUI(['failure','actions']);
+  };
+  // event listener for configuration succeeded
+  // use this to show a success message to a user in your welcome doc
+  var succeeded = function(event) {
+    console.log('configuration has succeeded');
+    showUI(['success']);
+  };
+  // event listener for browser support activated
+  var activated = function(event) {
+    console.log('activation has occurred');
+    showUI(['activated','actions']);
+  };
+  // hook event listener into button
+  var btn = document.getElementById('btn');
+  btn.addEventListener('click',click,false);
+  // Hook configuration event listeners into the document
+  document.addEventListener('ConfigureSecToolStarted',started,false);
+  document.addEventListener('ConfigureSecToolFailed',failed,false);
+  document.addEventListener('ConfigureSecToolActivated',activated,false);
+  document.addEventListener('ConfigureSecToolSucceeded',succeeded,false);
+</script>
+</html>
