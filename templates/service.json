@@ -41,7 +41,7 @@
     }
     ],
     "execAction":{
-      "url":"http://localhost:8080/JSON/core/blah/?zapapiformat=JSON&name=${$.key}&state=${$.args.state}",
+      "url":"http://localhost:3000/JSON/core/blah/?zapapiformat=JSON&name=${$.tab.key}&state=${$.args.state}",
       "callbackData":{
         "conditionalCommands":{
           "expression":"$.args.scope",
